@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-template<class Type>  //Êı×éÊä³ö
+template<class Type>  //æ•°ç»„è¾“å‡º
 void Print(Type* arr, int len)
 {
 	for (int i = 0; i < len; i++)
@@ -9,7 +9,7 @@ void Print(Type* arr, int len)
 	cout << endl;
 }
 
-template<class Type> //½«Ô´Êı×éÖĞÊ£ÓàµÄ²»³É¶ÔÔªËØ¸´ÖÆµ½Ä¿µÄÊı×éÖĞ
+template<class Type> //å°†æºæ•°ç»„ä¸­å‰©ä½™çš„ä¸æˆå¯¹å…ƒç´ å¤åˆ¶åˆ°ç›®çš„æ•°ç»„ä¸­
 void Copy(Type* des, Type* sou, int left, int right)
 {
 	for (int i = left; i < right; i++)
@@ -57,7 +57,7 @@ void MergeSort(Type* ar, int len)
 	delete []br;
 }
 
-template<class Type>       //·Çµİ¹é
+template<class Type>       //éé€’å½’
 void NicePassMerge(Type* des, Type* sou, int s, int n)
 {
 	int i = 0;
