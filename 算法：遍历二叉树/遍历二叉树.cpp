@@ -2,14 +2,14 @@
 #include <stack>
 using namespace std;
 
-typedef struct BiNode  //¶¨Òå¶ş²æÊ÷µÄ½Úµã½á¹¹
+typedef struct BiNode  //å®šä¹‰äºŒå‰æ ‘çš„èŠ‚ç‚¹ç»“æ„
 {
 	char data;
 	struct BiNode* lchild;
 	struct BiNode* rchild;
 }BiNode, *PNode;
 
-void CreateTree(PNode &root) //´´½¨¶ş²æÊ÷
+void CreateTree(PNode &root) //åˆ›å»ºäºŒå‰æ ‘
 {
 	char ch; cin >> ch;
 	if (ch == '#')
@@ -25,7 +25,7 @@ void CreateTree(PNode &root) //´´½¨¶ş²æÊ÷
 	}
 }
 
-void PreOrder(PNode root) //µİ¹é--¶ş²æÊ÷ÏÈĞò±éÀú£¨¸ù×óÓÒ£©
+void PreOrder(PNode root) //é€’å½’--äºŒå‰æ ‘å…ˆåºéå†ï¼ˆæ ¹å·¦å³ï¼‰
 {
 	if (root == NULL)
 		return;
@@ -34,7 +34,7 @@ void PreOrder(PNode root) //µİ¹é--¶ş²æÊ÷ÏÈĞò±éÀú£¨¸ù×óÓÒ£©
 	PreOrder(root->rchild);
 }
 
-void InOrder(PNode root) //µİ¹é--¶ş²æÊ÷ÖĞĞò±éÀú£¨×ó¸ùÓÒ£©
+void InOrder(PNode root) //é€’å½’--äºŒå‰æ ‘ä¸­åºéå†ï¼ˆå·¦æ ¹å³ï¼‰
 {
 	if (root == NULL)
 		return;
@@ -43,7 +43,7 @@ void InOrder(PNode root) //µİ¹é--¶ş²æÊ÷ÖĞĞò±éÀú£¨×ó¸ùÓÒ£©
 	InOrder(root->rchild);
 }
 
-void PostOrder(PNode root)//µİ¹é--¶ş²æÊ÷ºóĞò±éÀú£¨×óÓÒ¸ù£©
+void PostOrder(PNode root)//é€’å½’--äºŒå‰æ ‘ååºéå†ï¼ˆå·¦å³æ ¹ï¼‰
 {
 	if (root == NULL)
 		return;
@@ -52,7 +52,7 @@ void PostOrder(PNode root)//µİ¹é--¶ş²æÊ÷ºóĞò±éÀú£¨×óÓÒ¸ù£©
 	cout << root->data << " ";
 }
 
-void PreTraverse(PNode root) //·Çµİ¹é--¶ş²æÊ÷ÏÈĞò±éÀú
+void PreTraverse(PNode root) //éé€’å½’--äºŒå‰æ ‘å…ˆåºéå†
 {
 	if (root == NULL)
 		return;
@@ -78,7 +78,7 @@ void PreTraverse(PNode root) //·Çµİ¹é--¶ş²æÊ÷ÏÈĞò±éÀú
 	}
 }
 
-void InTraverse(PNode root) //·Çµİ¹é--¶ş²æÊ÷ÖĞĞò±éÀú
+void InTraverse(PNode root) //éé€’å½’--äºŒå‰æ ‘ä¸­åºéå†
 {
 	if (root == NULL)
 		return;
@@ -89,7 +89,7 @@ void InTraverse(PNode root) //·Çµİ¹é--¶ş²æÊ÷ÖĞĞò±éÀú
 
 	while (!sta.empty())
 	{
-		while ((p = sta.top()) && p) //ÏÈ±éÀúÕ»ÖĞ½áµãµÄ×óº¢×Ó
+		while ((p = sta.top()) && p) //å…ˆéå†æ ˆä¸­ç»“ç‚¹çš„å·¦å­©å­
 		{
 			sta.push(p->lchild); 
 		}
@@ -99,13 +99,58 @@ void InTraverse(PNode root) //·Çµİ¹é--¶ş²æÊ÷ÖĞĞò±éÀú
 		{
 			p = sta.top();
 			sta.pop();
-			cout << p->data << " ";//´ËÊ±×ó±ßÒÑ¾­±éÀúÍêÁË
-			sta.push(p->rchild); //°ÑÓÒº¢×Ó·Å½øÕ»ÖĞ£¬¶ÔÓÒº¢×Ó½øĞĞÖĞĞò±éÀú
+			cout << p->data << " ";//æ­¤æ—¶å·¦è¾¹å·²ç»éå†å®Œäº†
+			sta.push(p->rchild); //æŠŠå³å­©å­æ”¾è¿›æ ˆä¸­ï¼Œå¯¹å³å­©å­è¿›è¡Œä¸­åºéå†
 		}
 
 
 	}
 }
+
+void PostTraverse(PNode root) //éé€’å½’--äºŒå‰æ ‘åç»­éå†
+{
+	typedef struct Data
+	{
+		int flag;
+		PNode node;
+	}Data;
+
+	int flag;
+	Data data;
+	PNode p = root;
+	stack<Data> sta;
+
+	while (p || !sta.empty())
+	{
+		while (p)
+		{
+			data.node = p;
+			data.flag = 0;
+			sta.push(data);
+			p = p->lchild;
+		}
+
+		data = sta.top();
+		sta.pop();
+
+		p = data.node;
+		flag = data.flag;
+
+		if (flag == 0)
+		{
+			data.node = p;
+			data.flag = 1;
+			sta.push(data);
+			p = p->rchild;
+		}
+		else
+		{
+			cout << p->data << " ";
+			p = NULL;
+		}
+	}
+}
+
 
 int main()
 {
@@ -113,19 +158,29 @@ int main()
 	cout << "please input data: ";
 	CreateTree(root);
 
-	cout << "µİ¹éÏÈĞò±éÀú£º";
+	cout << "é€’å½’å…ˆåºéå†ï¼š";
 	PreOrder(root);
 	cout << endl;
 
-	cout << "·Çµİ¹éÏÈĞò±éÀú£º";
+	cout << "éé€’å½’å…ˆåºéå†ï¼š";
 	PreTraverse(root);
 	cout << endl;
 
-	//InOrder(root);
-	//cout << endl;
+	cout << "é€’å½’ä¸­åºéå†ï¼š";
+	InOrder(root);
+	cout << endl;
 
-	//PostOrder(root);
-	//cout << endl;
+	cout << "éé€’å½’ä¸­åºéå†ï¼š";
+	InTraverse(root);
+	cout << endl;
+
+	cout << "é€’å½’åç»­éå†ï¼š";
+	PostOrder(root);
+	cout << endl;
+
+	cout << "éé€’å½’åç»­éå†ï¼š";
+	PostTraverse(root);
+	cout << endl;
 	return 0;
 }
 // ABC##DE##F##G#H##
